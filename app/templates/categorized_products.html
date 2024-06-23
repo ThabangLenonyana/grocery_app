@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block title %}Categorized Products{% endblock %} {%
+block content %}
+<h1 class="my-4">Categorized Products</h1>
+<div class="row">
+  {% for store, products in categorized.items() %}
+  <div class="col-lg-4 col-md-6 mb-4">
+    <div class="card h-100">
+      <img
+        src="{{ default_logo_url }}"
+        class="card-img-top"
+        alt="{{ store }}"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ store }}</h5>
+        <a
+          href="{{ url_for('main.store_products', store_name=store) }}"
+          class="btn btn-primary"
+          >View Products</a
+        >
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

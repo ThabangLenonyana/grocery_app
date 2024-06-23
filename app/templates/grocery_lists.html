@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block title %}Grocery Lists{% endblock %} {% block
+content %}
+<h1 class="my-4">Your Grocery Lists</h1>
+<form method="POST" action="">
+  {{ form.hidden_tag() }}
+  <div class="form-group">
+    {{ form.name.label(class="form-control-label") }} {{
+    form.name(class="form-control") }}
+  </div>
+  <div class="form-group">{{ form.submit(class="btn btn-primary") }}</div>
+</form>
+<ul class="list-group mt-4">
+  {% for list in grocery_lists %}
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <a href="{{ url_for('main.grocery_list', grocery_list_id=list.id) }}"
+      >{{ list.name }}</a
+    >
+    <form
+      method="POST"
+      action="{{ url_for('main.delete_grocery_list', grocery_list_id=list.id) }}"
+      class="ml-auto"
+    >
+      <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+    </form>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block title %}{{ title }}{% endblock %} {% block
+content %}
+<h1 class="my-4">{{ grocery_list.name }}</h1>
+<form method="POST" action="">
+  {{ form.hidden_tag() }}
+  <div class="form-group">
+    {{ form.product_name.label(class="form-control-label") }} {{
+    form.product_name(class="form-control") }}
+  </div>
+  <div class="form-group">
+    {{ form.quantity.label(class="form-control-label") }} {{
+    form.quantity(class="form-control") }}
+  </div>
+  <div class="form-group">{{ form.submit(class="btn btn-primary") }}</div>
+</form>
+<ul class="list-group mt-4">
+  {% for item in items %}
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    {{ item.product.product_name }} - {{ item.quantity }}
+    <form
+      method="POST"
+      action="{{ url_for('main.delete_grocery_list_item', item_id=item.id) }}"
+      class="ml-auto"
+    >
+      <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+    </form>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}
